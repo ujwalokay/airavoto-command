@@ -23,8 +23,8 @@ export function PageHeader({
   actions,
 }: {
   title: string;
-  description: string;
-  actions?: ReactNode;
+  description: ReactNode;
+  actions?: ReactNode | undefined;
 }) {
   return (
     <header className="flex flex-wrap items-start justify-between gap-4 border-b pb-5">
