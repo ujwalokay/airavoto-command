@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CafesIndexRouteImport } from './routes/cafes.index'
+import { Route as InstallationsIndexRouteImport } from './routes/installations.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const CafesIndexRoute = CafesIndexRouteImport.update({
   path: '/cafes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstallationsIndexRoute = InstallationsIndexRouteImport.update({
+  id: '/installations/',
+  path: '/installations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cafes/': typeof CafesIndexRoute
+  '/installations/': typeof InstallationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cafes': typeof CafesIndexRoute
+  '/installations': typeof InstallationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cafes/': typeof CafesIndexRoute
+  '/installations/': typeof InstallationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cafes/'
+  fullPaths: '/' | '/cafes/' | '/installations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cafes'
-  id: '__root__' | '/' | '/cafes/'
+  to: '/' | '/cafes' | '/installations'
+  id: '__root__' | '/' | '/cafes/' | '/installations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CafesIndexRoute: typeof CafesIndexRoute
+  InstallationsIndexRoute: typeof InstallationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CafesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/installations/': {
+      id: '/installations/'
+      path: '/installations'
+      fullPath: '/installations/'
+      preLoaderRoute: typeof InstallationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CafesIndexRoute: CafesIndexRoute,
+  InstallationsIndexRoute: InstallationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
