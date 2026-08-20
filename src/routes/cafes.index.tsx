@@ -23,7 +23,7 @@ import { ConfirmAction, EmptyState, PageHeader } from "@/components/head/primiti
 import { useSession } from "@/components/head/session";
 import { cafes, fmtDate, relTime, type Cafe } from "@/lib/head-data";
 
-export const Route = createFileRoute("/cafes")({
+export const Route = createFileRoute("/cafes/")({
   head: () => ({
     meta: [
       { title: "Cafe Directory — AiravotoHead" },
