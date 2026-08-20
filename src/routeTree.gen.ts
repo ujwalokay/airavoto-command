@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CafesIndexRouteImport } from './routes/cafes.index'
 import { Route as InstallationsIndexRouteImport } from './routes/installations.index'
+import { Route as InstallationsInstallationIdRouteImport } from './routes/installations.$installationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,33 +29,49 @@ const InstallationsIndexRoute = InstallationsIndexRouteImport.update({
   path: '/installations/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstallationsInstallationIdRoute =
+  InstallationsInstallationIdRouteImport.update({
+    id: '/installations/$installationId',
+    path: '/installations/$installationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/installations/$installationId': typeof InstallationsInstallationIdRoute
   '/cafes/': typeof CafesIndexRoute
   '/installations/': typeof InstallationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/installations/$installationId': typeof InstallationsInstallationIdRoute
   '/cafes': typeof CafesIndexRoute
   '/installations': typeof InstallationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/installations/$installationId': typeof InstallationsInstallationIdRoute
   '/cafes/': typeof CafesIndexRoute
   '/installations/': typeof InstallationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cafes/' | '/installations/'
+  fullPaths:
+    '/' | '/installations/$installationId' | '/cafes/' | '/installations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cafes' | '/installations'
-  id: '__root__' | '/' | '/cafes/' | '/installations/'
+  to: '/' | '/installations/$installationId' | '/cafes' | '/installations'
+  id:
+    | '__root__'
+    | '/'
+    | '/installations/$installationId'
+    | '/cafes/'
+    | '/installations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InstallationsInstallationIdRoute: typeof InstallationsInstallationIdRoute
   CafesIndexRoute: typeof CafesIndexRoute
   InstallationsIndexRoute: typeof InstallationsIndexRoute
 }
@@ -82,11 +99,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstallationsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/installations/$installationId': {
+      id: '/installations/$installationId'
+      path: '/installations/$installationId'
+      fullPath: '/installations/$installationId'
+      preLoaderRoute: typeof InstallationsInstallationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InstallationsInstallationIdRoute: InstallationsInstallationIdRoute,
   CafesIndexRoute: CafesIndexRoute,
   InstallationsIndexRoute: InstallationsIndexRoute,
 }
