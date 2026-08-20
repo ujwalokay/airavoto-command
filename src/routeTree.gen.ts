@@ -15,6 +15,7 @@ import { Route as DiagnosticsRouteImport } from './routes/diagnostics'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as LicensesRouteImport } from './routes/licenses'
 import { Route as ReleasesRouteImport } from './routes/releases'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SyncRouteImport } from './routes/sync'
 import { Route as CafesIndexRouteImport } from './routes/cafes.index'
 import { Route as CafesCafeIdRouteImport } from './routes/cafes.$cafeId'
@@ -50,6 +51,11 @@ const LicensesRoute = LicensesRouteImport.update({
 const ReleasesRoute = ReleasesRouteImport.update({
   id: '/releases',
   path: '/releases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SyncRoute = SyncRouteImport.update({
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/sync': typeof SyncRoute
   '/cafes/$cafeId': typeof CafesCafeIdRoute
   '/cafes/new': typeof CafesNewRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/sync': typeof SyncRoute
   '/cafes/$cafeId': typeof CafesCafeIdRoute
   '/cafes/new': typeof CafesNewRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/health': typeof HealthRoute
   '/licenses': typeof LicensesRoute
   '/releases': typeof ReleasesRoute
+  '/settings': typeof SettingsRoute
   '/sync': typeof SyncRoute
   '/cafes/$cafeId': typeof CafesCafeIdRoute
   '/cafes/new': typeof CafesNewRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/licenses'
     | '/releases'
+    | '/settings'
     | '/sync'
     | '/cafes/$cafeId'
     | '/cafes/new'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/licenses'
     | '/releases'
+    | '/settings'
     | '/sync'
     | '/cafes/$cafeId'
     | '/cafes/new'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/health'
     | '/licenses'
     | '/releases'
+    | '/settings'
     | '/sync'
     | '/cafes/$cafeId'
     | '/cafes/new'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   HealthRoute: typeof HealthRoute
   LicensesRoute: typeof LicensesRoute
   ReleasesRoute: typeof ReleasesRoute
+  SettingsRoute: typeof SettingsRoute
   SyncRoute: typeof SyncRoute
   CafesCafeIdRoute: typeof CafesCafeIdRoute
   CafesNewRoute: typeof CafesNewRoute
@@ -229,6 +242,13 @@ declare module '@tanstack/react-router' {
       path: '/releases'
       fullPath: '/releases'
       preLoaderRoute: typeof ReleasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sync': {
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   HealthRoute: HealthRoute,
   LicensesRoute: LicensesRoute,
   ReleasesRoute: ReleasesRoute,
+  SettingsRoute: SettingsRoute,
   SyncRoute: SyncRoute,
   CafesCafeIdRoute: CafesCafeIdRoute,
   CafesNewRoute: CafesNewRoute,
