@@ -87,6 +87,21 @@ const PERMISSIONS: Record<Role, Permission[]> = {
   auditor: ["audit.export"],
 };
 
+export const PERMISSION_LIST: Permission[] = [
+  "cafe.create",
+  "cafe.archive",
+  "license.suspend",
+  "license.reactivate",
+  "license.rotate",
+  "installation.revoke",
+  "sync.retry",
+  "sync.resolve",
+  "release.publish",
+  "settings.write",
+  "audit.export",
+  "support.bundle",
+];
+
 export const can = (role: Role, p: Permission) => PERMISSIONS[role].includes(p);
 
 export type LicenseState =
@@ -383,7 +398,7 @@ export type License = {
   features: string[];
   tokenVersion: number;
   lastValidation: number;
-  suspensionReason?: string;
+  suspensionReason?: string | undefined;
   reactivations: number;
 };
 
@@ -429,7 +444,7 @@ export type SyncEvent = {
   operation: "create" | "update" | "delete";
   createdAt: number;
   retries: number;
-  lastError?: string;
+  lastError?: string | undefined;
   state: "Queued" | "Sending" | "Acknowledged" | "Failed" | "Conflict" | "Ignored" | "Manually resolved";
   protectedEntity: boolean;
 };
@@ -593,8 +608,8 @@ export type AuditRecord = {
   action: string;
   targetType: "Cafe" | "License" | "Installation" | "Release" | "SyncEvent" | "Settings" | "Support";
   targetId: string;
-  cafeId?: string;
-  cafeName?: string;
+  cafeId?: string | undefined;
+  cafeName?: string | undefined;
   reason: string;
   before: string;
   after: string;
@@ -700,7 +715,7 @@ export const kpis = () => {
   };
 };
 
-export function relTime(ts: number) {
+export function relTime(ts: number): string {
   const d = NOW - ts;
   if (d < 0) return `in ${relTime(NOW * 2 - ts)}`;
   const m = Math.round(d / 60000);
