@@ -154,7 +154,7 @@ function CafeDirectory() {
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem
-                variant="destructive"
+                className="text-danger focus:text-danger"
                 disabled={!session.can("license.suspend")}
                 onSelect={() => setPending({ cafe: c, kind: "suspend" })}
               >
@@ -162,7 +162,7 @@ function CafeDirectory() {
               </DropdownMenuItem>
             )}
             <DropdownMenuItem
-              variant="destructive"
+              className="text-danger focus:text-danger"
               disabled={!session.can("cafe.archive")}
               onSelect={() => setPending({ cafe: c, kind: "archive" })}
             >
@@ -294,12 +294,12 @@ function CafeDirectory() {
           actionLabel={
             reactivating ? "Reactivate license" : pending.kind === "archive" ? "Archive cafe" : "Suspend license"
           }
-          onConfirm={() =>
+          onConfirm={() => {
             toast.success(
               `${reactivating ? "Reactivated" : pending.kind === "archive" ? "Archived" : "Suspended"} ${pending.cafe.name}`,
               { description: "Audit record AUD-9F21C written. Cafe owner notified." },
-            )
-          }
+            );
+          }}
         />
       )}
     </>

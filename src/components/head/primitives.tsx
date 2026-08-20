@@ -156,11 +156,11 @@ export function ConfirmAction({
   title: string;
   target: { label: string; value: string }[];
   effects: string[];
-  delayedEffects?: string[];
+  delayedEffects?: string[] | undefined;
   recovery: string;
-  confirmWord?: string;
+  confirmWord?: string | undefined;
   actionLabel: string;
-  destructive?: boolean;
+  destructive?: boolean | undefined;
   onConfirm: (reason: string) => void;
 }) {
   const [reason, setReason] = useState("");
