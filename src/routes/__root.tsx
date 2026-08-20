@@ -126,8 +126,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SessionProvider>
+        <TooltipProvider delayDuration={200}>
+          <AppShell>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </AppShell>
+          <Toaster richColors position="top-right" />
+        </TooltipProvider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }
+
