@@ -87,6 +87,21 @@ const PERMISSIONS: Record<Role, Permission[]> = {
   auditor: ["audit.export"],
 };
 
+export const PERMISSION_LIST: Permission[] = [
+  "cafe.create",
+  "cafe.archive",
+  "license.suspend",
+  "license.reactivate",
+  "license.rotate",
+  "installation.revoke",
+  "sync.retry",
+  "sync.resolve",
+  "release.publish",
+  "settings.write",
+  "audit.export",
+  "support.bundle",
+];
+
 export const can = (role: Role, p: Permission) => PERMISSIONS[role].includes(p);
 
 export type LicenseState =

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader, Field, Hint } from "@/components/head/primitives";
 import { StatusBadge } from "@/components/head/status-badge";
-import { ROLES, PERMISSION_LIST } from "@/lib/head-data";
+import { ROLES, PERMISSION_LIST, can } from "@/lib/head-data";
 import { useSession } from "@/components/head/session";
 
 export const Route = createFileRoute("/settings")({
@@ -82,7 +82,7 @@ function SettingsPage() {
                   <td className="py-2 pr-3 font-mono text-xs">{p}</td>
                   {ROLES.map((r) => (
                     <td key={r.id} className="px-2 py-2">
-                      {roleHas(r.id, p) ? (
+                      {can(r.id, p) ? (
                         <span className="text-ok">Allowed</span>
                       ) : (
                         <span className="text-muted-foreground">—</span>
@@ -97,8 +97,4 @@ function SettingsPage() {
       </Card>
     </>
   );
-}
-
-function roleHas(role: (typeof ROLES)[number]["id"], permission: (typeof PERMISSION_LIST)[number]) {
-  return canFn(role, permission);
 }

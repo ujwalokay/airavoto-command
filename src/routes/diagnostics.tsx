@@ -33,7 +33,7 @@ function DiagnosticsPage() {
   const [asking, setAsking] = useState(false);
   const inst = installations.find((i) => i.id === id);
 
-  if (!session.can("support.diagnostics")) return <PermissionDenied what="run support diagnostics" />;
+  if (!session.can("support.bundle")) return <PermissionDenied what="run support diagnostics" />;
 
   return (
     <>
